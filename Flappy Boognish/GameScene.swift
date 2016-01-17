@@ -289,7 +289,7 @@ createScene()
             let location = touch.locationInNode(self)
             
             boognish.physicsBody?.velocity = CGVectorMake(0, 0)
-            boognish.physicsBody?.applyImpulse(CGVectorMake(0,30))
+            boognish.physicsBody?.applyImpulse(CGVectorMake(0,25))
             
             if died == true {
                 boognish.physicsBody?.velocity = CGVectorMake(0, 0)
