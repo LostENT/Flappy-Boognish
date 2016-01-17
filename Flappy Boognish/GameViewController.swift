@@ -8,8 +8,11 @@
 
 import UIKit
 import SpriteKit
+import AVFoundation
 
 class GameViewController: UIViewController {
+    
+    var backgroundMusicPlayer:AVAudioPlayer = AVAudioPlayer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +23,9 @@ class GameViewController: UIViewController {
             skView.showsFPS = true
             skView.showsNodeCount = true
             
+  
+
+            
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true
             
@@ -28,7 +34,19 @@ class GameViewController: UIViewController {
             
             skView.presentScene(scene)
         }
+        
     }
+    
+    override func viewWillLayoutSubviews() {
+        
+        let bgMusicURL:NSURL = NSBundle.mainBundle().URLForResource("bgmusic", withExtension: "mp3")!     // Add ! at the end
+        
+        backgroundMusicPlayer = try!  AVAudioPlayer(contentsOfURL: bgMusicURL)     // Add try!
+        backgroundMusicPlayer.numberOfLoops = -1
+        backgroundMusicPlayer.prepareToPlay()
+        backgroundMusicPlayer.play()
+    }
+    
 
     override func shouldAutorotate() -> Bool {
         return true

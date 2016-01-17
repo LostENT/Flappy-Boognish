@@ -16,6 +16,15 @@
 		527C68C51C49CD350016CA6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 527C68C31C49CD350016CA6B /* LaunchScreen.storyboard */; };
 		527C68D01C49CD350016CA6B /* Flappy_BoognishTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527C68CF1C49CD350016CA6B /* Flappy_BoognishTests.swift */; };
 		527C68DB1C49CD350016CA6B /* Flappy_BoognishUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527C68DA1C49CD350016CA6B /* Flappy_BoognishUITests.swift */; };
+		527C68EA1C49CD5B0016CA6B /* PipeUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 527C68E81C49CD5B0016CA6B /* PipeUp.png */; };
+		527C68EB1C49CD5B0016CA6B /* PipeDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 527C68E91C49CD5B0016CA6B /* PipeDown.png */; };
+		527C68ED1C49CD630016CA6B /* ground.png in Resources */ = {isa = PBXBuildFile; fileRef = 527C68EC1C49CD630016CA6B /* ground.png */; };
+		527C68F31C49DA640016CA6B /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 527C68F21C49DA640016CA6B /* background.png */; };
+		527C68F51C49DFB50016CA6B /* bgmusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 527C68F41C49DFB50016CA6B /* bgmusic.mp3 */; };
+		527C68F71C4A0DCA0016CA6B /* wall1.png in Resources */ = {isa = PBXBuildFile; fileRef = 527C68F61C4A0DCA0016CA6B /* wall1.png */; };
+		527C68F91C4A15210016CA6B /* wall2.png in Resources */ = {isa = PBXBuildFile; fileRef = 527C68F81C4A15210016CA6B /* wall2.png */; };
+		527C68FB1C4AE2170016CA6B /* guava.png in Resources */ = {isa = PBXBuildFile; fileRef = 527C68FA1C4AE2170016CA6B /* guava.png */; };
+		527C68FD1C4B78F30016CA6B /* boog.png in Resources */ = {isa = PBXBuildFile; fileRef = 527C68FC1C4B78F30016CA6B /* boog.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +60,15 @@
 		527C68D61C49CD350016CA6B /* Flappy BoognishUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Flappy BoognishUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		527C68DA1C49CD350016CA6B /* Flappy_BoognishUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flappy_BoognishUITests.swift; sourceTree = "<group>"; };
 		527C68DC1C49CD350016CA6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		527C68E81C49CD5B0016CA6B /* PipeUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PipeUp.png; sourceTree = "<group>"; };
+		527C68E91C49CD5B0016CA6B /* PipeDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PipeDown.png; sourceTree = "<group>"; };
+		527C68EC1C49CD630016CA6B /* ground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ground.png; sourceTree = "<group>"; };
+		527C68F21C49DA640016CA6B /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		527C68F41C49DFB50016CA6B /* bgmusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgmusic.mp3; sourceTree = "<group>"; };
+		527C68F61C4A0DCA0016CA6B /* wall1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wall1.png; sourceTree = "<group>"; };
+		527C68F81C4A15210016CA6B /* wall2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wall2.png; sourceTree = "<group>"; };
+		527C68FA1C4AE2170016CA6B /* guava.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guava.png; sourceTree = "<group>"; };
+		527C68FC1C4B78F30016CA6B /* boog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boog.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +125,15 @@
 				527C68BC1C49CD350016CA6B /* GameViewController.swift */,
 				527C68BE1C49CD350016CA6B /* Main.storyboard */,
 				527C68C11C49CD350016CA6B /* Assets.xcassets */,
+				527C68FC1C4B78F30016CA6B /* boog.png */,
+				527C68F41C49DFB50016CA6B /* bgmusic.mp3 */,
+				527C68EC1C49CD630016CA6B /* ground.png */,
+				527C68F61C4A0DCA0016CA6B /* wall1.png */,
+				527C68FA1C4AE2170016CA6B /* guava.png */,
+				527C68F21C49DA640016CA6B /* background.png */,
+				527C68F81C4A15210016CA6B /* wall2.png */,
+				527C68E81C49CD5B0016CA6B /* PipeUp.png */,
+				527C68E91C49CD5B0016CA6B /* PipeDown.png */,
 				527C68C31C49CD350016CA6B /* LaunchScreen.storyboard */,
 				527C68C61C49CD350016CA6B /* Info.plist */,
 			);
@@ -199,6 +226,7 @@
 				TargetAttributes = {
 					527C68B21C49CD350016CA6B = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = AW92SY9JFE;
 					};
 					527C68CA1C49CD350016CA6B = {
 						CreatedOnToolsVersion = 7.2;
@@ -236,9 +264,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				527C68B91C49CD350016CA6B /* GameScene.sks in Resources */,
+				527C68EB1C49CD5B0016CA6B /* PipeDown.png in Resources */,
+				527C68F91C4A15210016CA6B /* wall2.png in Resources */,
+				527C68F71C4A0DCA0016CA6B /* wall1.png in Resources */,
+				527C68ED1C49CD630016CA6B /* ground.png in Resources */,
 				527C68C51C49CD350016CA6B /* LaunchScreen.storyboard in Resources */,
+				527C68F51C49DFB50016CA6B /* bgmusic.mp3 in Resources */,
+				527C68FD1C4B78F30016CA6B /* boog.png in Resources */,
 				527C68C21C49CD350016CA6B /* Assets.xcassets in Resources */,
+				527C68EA1C49CD5B0016CA6B /* PipeUp.png in Resources */,
+				527C68F31C49DA640016CA6B /* background.png in Resources */,
 				527C68C01C49CD350016CA6B /* Main.storyboard in Resources */,
+				527C68FB1C4AE2170016CA6B /* guava.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,10 +442,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Flappy Boognish/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "blackhat.io.Flappy-Boognish";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -416,10 +456,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Flappy Boognish/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "blackhat.io.Flappy-Boognish";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -492,6 +535,7 @@
 				527C68E11C49CD350016CA6B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		527C68E21C49CD350016CA6B /* Build configuration list for PBXNativeTarget "Flappy BoognishTests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +544,7 @@
 				527C68E41C49CD350016CA6B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		527C68E51C49CD350016CA6B /* Build configuration list for PBXNativeTarget "Flappy BoognishUITests" */ = {
 			isa = XCConfigurationList;
@@ -508,6 +553,7 @@
 				527C68E71C49CD350016CA6B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
