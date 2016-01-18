@@ -144,20 +144,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         
-        
-        
         //Pipes
         
         //Create the Pipes
         
         pipeUpTexture = SKTexture(imageNamed: "PipeUp")
         pipeDownTexture = SKTexture(imageNamed: "PipeDown")
+        
+        //Create the Guava
         scoreNodeTexture = SKTexture(imageNamed: "guava")
         
         
         
         // movement of pipes
-        
         let distanceToMove = CGFloat(self.frame.size.width + 2.0 * pipeUpTexture.size().width)
         let movePipes = SKAction.moveByX(-distanceToMove, y: 0.0, duration: NSTimeInterval(0.01 * distanceToMove))
         let removePipes = SKAction.removeFromParent()
@@ -191,13 +190,19 @@ createScene()
     
     func createBTN(){
         
-        restartBTN = SKSpriteNode(color: SKColor.blueColor(), size: CGSize(width: 200, height: 100))
+        //add new image for button
+        //restartBTN = SKSpriteNode(color: SKColor.blueColor(), size: CGSize(width: 200, height: 100))
+        
+        restartBTN = SKSpriteNode(imageNamed: "restart")
+        restartBTN.setScale(0.25)
         restartBTN.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
         restartBTN.zPosition = 6
         self.addChild(restartBTN)
         
     }
     func spawnPipes(){
+        
+        //the way the Pipes spawn and move
         
         let pipePair = SKNode()
         pipePair.position = CGPointMake(self.frame.size.width + pipeUpTexture.size().width * 2, 0)
@@ -234,6 +239,8 @@ createScene()
         
         
         self.addChild(pipePair)
+        
+        //The way the Guava spawn and move
         
         let scoreNode =  SKSpriteNode(texture: scoreNodeTexture)
         
