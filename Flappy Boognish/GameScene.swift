@@ -56,6 +56,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         died=false
         gameStared = true
         score = 0
+        highScore = 0
         createScene()
     }
     
@@ -66,17 +67,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //score Label
         
-        scoreLbl.position = CGPoint (x: self.frame.width / 2 , y: self.frame.height / 2 + self.frame.height / 2.5)
+        scoreLbl.position = CGPoint (x: self.frame.width / 1.60 , y: self.frame.height / 20 + self.frame.height / 20)
         scoreLbl.text = "\(score)"
-        self.addChild(scoreLbl)
-        scoreLbl.zPosition = -1
-        
-        //highscore Label
-        
-        highScoreLbl.position = CGPoint (x: self.frame.width / 1 , y: self.frame.height / 1 + self.frame.height / 1.25)
-        highScoreLbl.text = "\(highScore)"
         self.addChild(highScoreLbl)
-        highScoreLbl.zPosition = -1
+        scoreLbl.fontColor = UIColor.brownColor()
+        scoreLbl.fontSize = 100
+        scoreLbl.zPosition = 5
+        
+        scoreLbl.zPosition = 5
+        
         
         // Background
         
@@ -280,10 +279,11 @@ createScene()
         if firstBody.categoryBitMask == PhysicsCatagory.Guava &&  secondBody.categoryBitMask == PhysicsCatagory.Boognish || firstBody.categoryBitMask == PhysicsCatagory.Boognish &&  secondBody.categoryBitMask == PhysicsCatagory.Guava{
             
             score++
-            highScore++
+            
 
             scoreLbl.text = "\(score)"
-            highScoreLbl.text = "\(highScore)"
+            
+            
             
           
             
