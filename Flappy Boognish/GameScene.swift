@@ -14,7 +14,7 @@ struct PhysicsCatagory {
     static let Boognish : UInt32 = 0x1 << 1
     static let Ground : UInt32 = 0x1 << 2
     static let Wall : UInt32 = 0x1 << 3
-    static let Score : UInt32 = 0x1 << 4
+    static let Guava : UInt32 = 0x1 << 4
     static let LeftWall : UInt32 = 0x1 << 5
 }
 
@@ -27,13 +27,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var rightWall = SKNode()
     var pipeUpTexture = SKTexture()
     var pipeDownTexture = SKTexture()
-    var scoreNodeTexture = SKTexture()
+    var guavaNodeTexture = SKTexture()
     var PipesMoveAndRemove = SKAction()
-    var ScoreMoveAndRemove = SKAction()
+    var GuavaMoveAndRemove = SKAction()
     var score = Int()
+    var highScore = Int()
+
     
     
     let scoreLbl = SKLabelNode()
+    let highScoreLbl = SKLabelNode()
    
     
     
@@ -44,7 +47,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
    
     
     let pipeGap = 150.0
-    
     
     
     func restartScene(){
@@ -68,6 +70,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLbl.text = "\(score)"
         self.addChild(scoreLbl)
         scoreLbl.zPosition = -1
+        
+        //highscore Label
+        
+        highScoreLbl.position = CGPoint (x: self.frame.width / 1 , y: self.frame.height / 1 + self.frame.height / 1.25)
+        highScoreLbl.text = "\(highScore)"
+        self.addChild(highScoreLbl)
+        highScoreLbl.zPosition = -1
         
         // Background
         
@@ -103,7 +112,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         boognish.physicsBody = SKPhysicsBody(circleOfRadius: boognish.size.height / 2)
         boognish.physicsBody?.categoryBitMask = PhysicsCatagory.Boognish
         boognish.physicsBody?.collisionBitMask = PhysicsCatagory.Ground | PhysicsCatagory.Wall | PhysicsCatagory.Wall
-        boognish.physicsBody?.contactTestBitMask = PhysicsCatagory.Ground | PhysicsCatagory.Wall | PhysicsCatagory.Score
+        boognish.physicsBody?.contactTestBitMask = PhysicsCatagory.Ground | PhysicsCatagory.Wall | PhysicsCatagory.Guava
         boognish.physicsBody!.dynamic = true
         boognish.physicsBody!.allowsRotation = false
         
@@ -152,7 +161,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pipeDownTexture = SKTexture(imageNamed: "PipeDown")
         
         //Create the Guava
-        scoreNodeTexture = SKTexture(imageNamed: "guava")
+        guavaNodeTexture = SKTexture(imageNamed: "guava")
         
         
         
@@ -163,12 +172,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         // movement of guavas
-        let scoreToMove = CGFloat(self.frame.size.width + 2.0 * scoreNodeTexture.size().width)
-        let moveScore = SKAction.moveByX(-distanceToMove, y: 4.0, duration: NSTimeInterval(0.01 * distanceToMove))
-        let removeScore = SKAction.removeFromParent()
+        let guavaToMove = CGFloat(self.frame.size.width + 2.0  * guavaNodeTexture.size().width)
+        let moveGuava = SKAction.moveByX(-distanceToMove, y: 0.0, duration: NSTimeInterval(1.0 * distanceToMove))
+        let removeGuava = SKAction.removeFromParent()
         
         
-        ScoreMoveAndRemove = SKAction.sequence([moveScore,removeScore])
+        GuavaMoveAndRemove = SKAction.sequence([moveGuava,removeGuava])
         
         PipesMoveAndRemove = SKAction.sequence([movePipes,removePipes])
         
@@ -242,21 +251,23 @@ createScene()
         
         //The way the Guava spawn and move
         
-        let scoreNode =  SKSpriteNode(texture: scoreNodeTexture)
+        let guavaNode =  SKSpriteNode(texture: guavaNodeTexture)
         
-        scoreNode.position = CGPointMake(0.0, CGFloat(y) + scoreNode.size.height + CGFloat(pipeGap))
-        scoreNode.physicsBody = SKPhysicsBody(rectangleOfSize: scoreNode.size)
-        scoreNode.physicsBody?.affectedByGravity = false
-        scoreNode.physicsBody?.dynamic = false
-        scoreNode.physicsBody?.categoryBitMask = PhysicsCatagory.Score
-        scoreNode.physicsBody?.collisionBitMask = 1
-        scoreNode.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
+        guavaNode.setScale(0.75)
+        guavaNode.position = CGPointMake(-1.5, CGFloat(y) * 1.1 + guavaNode.size.height + CGFloat(pipeGap))
+        guavaNode.physicsBody = SKPhysicsBody(rectangleOfSize: guavaNode.size)
+        guavaNode.physicsBody?.affectedByGravity = false
+        guavaNode.physicsBody?.dynamic = false
+        guavaNode.physicsBody?.categoryBitMask = PhysicsCatagory.Guava
+        guavaNode.physicsBody?.collisionBitMask = 1
+        guavaNode.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
         
-        scoreNode.runAction(ScoreMoveAndRemove)
-        pipePair.addChild(scoreNode)
+        guavaNode.runAction(GuavaMoveAndRemove)
+        pipePair.addChild(guavaNode)
         
     }
     
+
 
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -266,11 +277,14 @@ createScene()
         let secondBody = contact.bodyB
 
         
-        if firstBody.categoryBitMask == PhysicsCatagory.Score &&  secondBody.categoryBitMask == PhysicsCatagory.Boognish || firstBody.categoryBitMask == PhysicsCatagory.Boognish &&  secondBody.categoryBitMask == PhysicsCatagory.Score{
+        if firstBody.categoryBitMask == PhysicsCatagory.Guava &&  secondBody.categoryBitMask == PhysicsCatagory.Boognish || firstBody.categoryBitMask == PhysicsCatagory.Boognish &&  secondBody.categoryBitMask == PhysicsCatagory.Guava{
             
             score++
-            scoreLbl.text = "\(score)"
+            highScore++
 
+            scoreLbl.text = "\(score)"
+            highScoreLbl.text = "\(highScore)"
+            
           
             
         }
@@ -283,6 +297,8 @@ createScene()
             
         }
     }
+    
+
 
         
         
