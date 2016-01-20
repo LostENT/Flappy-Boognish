@@ -72,8 +72,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //score Label
         scoreLbl.position = CGPoint (x: self.frame.width / 2 , y: self.frame.height / 3 + self.frame.height / 2)
         scoreLbl.text = "\(score)"
+        scoreLbl.fontColor = UIColor.brownColor()
         self.addChild(scoreLbl)
-        scoreLbl.fontColor = UIColor.whiteColor()
         scoreLbl.fontSize = 100
         scoreLbl.zPosition = -10
        
@@ -82,7 +82,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         highScoreLbl.text = "high score \(highScore)"
         self.addChild(highScoreLbl)
         highScoreLbl.fontColor = UIColor.brownColor()
-        highScoreLbl.fontSize = 20
+        highScoreLbl.fontSize = 30
         highScoreLbl.zPosition = 5
         
         highScoreLbl.zPosition = 10
