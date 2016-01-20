@@ -32,6 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var GuavaMoveAndRemove = SKAction()
     var score = Int()
     var highScore = Int()
+    var savedScore = Int()
 
     
     
@@ -56,8 +57,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         died=false
         gameStared = true
         score = 0
-        highScore = 0
+        highScoreLbl.text = "high score \(highScore)"
         createScene()
+        
+        
     }
     
     func createScene(){
@@ -65,16 +68,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         /* Setup your scene here */
         
+      
         //score Label
-        
-        scoreLbl.position = CGPoint (x: self.frame.width / 1.60 , y: self.frame.height / 20 + self.frame.height / 20)
+        scoreLbl.position = CGPoint (x: self.frame.width / 2 , y: self.frame.height / 3 + self.frame.height / 2)
         scoreLbl.text = "\(score)"
-        self.addChild(highScoreLbl)
-        scoreLbl.fontColor = UIColor.brownColor()
+        self.addChild(scoreLbl)
+        scoreLbl.fontColor = UIColor.whiteColor()
         scoreLbl.fontSize = 100
-        scoreLbl.zPosition = 5
+        scoreLbl.zPosition = -10
+       
         
-        scoreLbl.zPosition = 5
+        highScoreLbl.position = CGPoint (x: self.frame.width / 1.65 , y: self.frame.height / 20 + self.frame.height / 5)
+        highScoreLbl.text = "high score \(highScore)"
+        self.addChild(highScoreLbl)
+        highScoreLbl.fontColor = UIColor.brownColor()
+        highScoreLbl.fontSize = 20
+        highScoreLbl.zPosition = 5
+        
+        highScoreLbl.zPosition = 10
         
         
         // Background
@@ -250,7 +261,10 @@ createScene()
         
         //The way the Guava spawn and move
         
+       
+        
         let guavaNode =  SKSpriteNode(texture: guavaNodeTexture)
+      
         
         guavaNode.setScale(0.75)
         guavaNode.position = CGPointMake(-1.5, CGFloat(y) * 1.1 + guavaNode.size.height + CGFloat(pipeGap))
@@ -264,24 +278,30 @@ createScene()
         guavaNode.runAction(GuavaMoveAndRemove)
         pipePair.addChild(guavaNode)
         
-    }
-    
-
-
+        //the way the guava collide
+        
+        
+        
+        
+        
+            
+        }
+            
+    //What happens when Boognish and Guava collide
     
     func didBeginContact(contact: SKPhysicsContact) {
         
         
         let firstBody = contact.bodyA
         let secondBody = contact.bodyB
-
+        
         
         if firstBody.categoryBitMask == PhysicsCatagory.Guava &&  secondBody.categoryBitMask == PhysicsCatagory.Boognish || firstBody.categoryBitMask == PhysicsCatagory.Boognish &&  secondBody.categoryBitMask == PhysicsCatagory.Guava{
             
             score++
-            
-
             scoreLbl.text = "\(score)"
+            
+            
             
             
             
@@ -303,7 +323,7 @@ createScene()
         
         
     
-       override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+     override  func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
         
         
@@ -317,6 +337,13 @@ createScene()
             if died == true {
                 boognish.physicsBody?.velocity = CGVectorMake(0, 0)
                 boognish.physicsBody?.applyImpulse(CGVectorMake(0,0))
+                
+                if score > highScore {
+                highScore = score
+                }
+                else{
+                    highScore == highScore
+                }
             }
            
     
@@ -327,15 +354,20 @@ createScene()
             
             if died == true {
                 
+                
+                
                 if restartBTN.containsPoint(location){
                 restartScene()
+                    
+                    
                 }
                 
             }
         }
     }
     
-    override func update(currentTime: CFTimeInterval) {
+   override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
     }
+
 }
