@@ -27,7 +27,7 @@
 		527C69071C4C82AE0016CA6B /* restart.png in Resources */ = {isa = PBXBuildFile; fileRef = 527C69061C4C82AE0016CA6B /* restart.png */; };
 		52D02D801C50767800596A46 /* stallion.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D02D7F1C50767800596A46 /* stallion.png */; };
 		52D02D821C5084BB00596A46 /* PipeDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D02D811C5084BB00596A46 /* PipeDown.png */; };
-		52D02D841C508ADF00596A46 /* weasel.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D02D831C508ADF00596A46 /* weasel.png */; };
+		52D02D8B1C51705200596A46 /* weasel.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D02D8A1C51705200596A46 /* weasel.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,7 +74,7 @@
 		527C69061C4C82AE0016CA6B /* restart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restart.png; sourceTree = "<group>"; };
 		52D02D7F1C50767800596A46 /* stallion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stallion.png; sourceTree = "<group>"; };
 		52D02D811C5084BB00596A46 /* PipeDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PipeDown.png; sourceTree = "<group>"; };
-		52D02D831C508ADF00596A46 /* weasel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weasel.png; sourceTree = "<group>"; };
+		52D02D8A1C51705200596A46 /* weasel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weasel.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,9 +135,9 @@
 				527C68F41C49DFB50016CA6B /* bgmusic.mp3 */,
 				527C68EC1C49CD630016CA6B /* ground.png */,
 				527C68F61C4A0DCA0016CA6B /* wall1.png */,
-				52D02D831C508ADF00596A46 /* weasel.png */,
 				52D02D7F1C50767800596A46 /* stallion.png */,
 				527C68FA1C4AE2170016CA6B /* guava.png */,
+				52D02D8A1C51705200596A46 /* weasel.png */,
 				527C69061C4C82AE0016CA6B /* restart.png */,
 				527C68F21C49DA640016CA6B /* background.png */,
 				527C68F81C4A15210016CA6B /* wall2.png */,
@@ -286,7 +286,7 @@
 				527C69071C4C82AE0016CA6B /* restart.png in Resources */,
 				527C68C01C49CD350016CA6B /* Main.storyboard in Resources */,
 				52D02D821C5084BB00596A46 /* PipeDown.png in Resources */,
-				52D02D841C508ADF00596A46 /* weasel.png in Resources */,
+				52D02D8B1C51705200596A46 /* weasel.png in Resources */,
 				527C68FB1C4AE2170016CA6B /* guava.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

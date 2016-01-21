@@ -97,7 +97,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLbl.zPosition = -10
        
         //high score label
-        
+        NSUserDefaults.standardUserDefaults().setInteger(highScore, forKey: "Highscore")
         highScoreLbl.position = CGPoint (x: self.frame.width / 1.65 , y: self.frame.height / 20 + self.frame.height / 5)
         highScoreLbl.text = "high score \(highScore)"
         self.addChild(highScoreLbl)
@@ -407,9 +407,10 @@ createScene()
                 }
                 else{
                     highScore == highScore
+                    
                 }
             }
-           
+        
     
         }
         for touch in touches {
@@ -421,8 +422,9 @@ createScene()
                 
                 
                 if restartBTN.containsPoint(location){
-                restartScene()
                     
+                restartScene()
+                
                     
                 }
                 
