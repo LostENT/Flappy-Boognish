@@ -34,7 +34,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var highScore = Int()
     var savedScore = Int()
 
-    
+    var scoreIncreased = Bool()
+    var guavaVisible = Bool()
     
     let scoreLbl = SKLabelNode()
     let highScoreLbl = SKLabelNode()
@@ -42,13 +43,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     var died = Bool()
-    var guavaVisible = Bool()
     var gameStared = Bool()
     var restartBTN = SKSpriteNode()
    
     
     let pipeGap = 150.0
     
+    //What happens when the score increases
+    
+    func scoreDidIncrease() {
+        
+        score++
+        scoreLbl.text = "\(score)"
+        scoreIncreased = true
+        
+    }
+    
+    //What happens when the game is restarted
     
     func restartScene(){
         
@@ -62,6 +73,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
     }
+    
+    //What happens when the game starts
     
     func createScene(){
         
@@ -129,7 +142,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(boognish)
         
         //Ground
-        
         self.physicsWorld.contactDelegate = self
         
         ground = SKSpriteNode (imageNamed: "ground")
@@ -209,8 +221,7 @@ createScene()
     
     func createBTN(){
         
-        //add new image for button
-        //restartBTN = SKSpriteNode(color: SKColor.blueColor(), size: CGSize(width: 200, height: 100))
+        //The restart button
         
         restartBTN = SKSpriteNode(imageNamed: "restart")
         restartBTN.setScale(0.25)
@@ -219,6 +230,7 @@ createScene()
         self.addChild(restartBTN)
         
     }
+
     func spawnPipes(){
         
         //the way the Pipes spawn and move
@@ -259,6 +271,7 @@ createScene()
         
         self.addChild(pipePair)
         
+        
         //The way the Guava spawn and move
         
        
@@ -266,8 +279,8 @@ createScene()
         let guavaNode =  SKSpriteNode(texture: guavaNodeTexture)
       
         
-        guavaNode.setScale(0.75)
-        guavaNode.position = CGPointMake(-1.5, CGFloat(y) * 1.1 + guavaNode.size.height + CGFloat(pipeGap))
+        guavaNode.setScale(0.6)
+        guavaNode.position = CGPointMake(-1.5, CGFloat(y) * 1.15 + guavaNode.size.height + CGFloat(pipeGap))
         guavaNode.physicsBody = SKPhysicsBody(rectangleOfSize: guavaNode.size)
         guavaNode.physicsBody?.affectedByGravity = false
         guavaNode.physicsBody?.dynamic = false
@@ -280,11 +293,17 @@ createScene()
         
         //the way the guava collide
         
-        
-        
-        
-        
+        func guavaDidRemove() {
             
+            if scoreIncreased == true{
+               
+                guavaVisible = false
+            }
+        }
+        
+        
+        
+        
         }
             
     //What happens when Boognish and Guava collide
@@ -298,13 +317,7 @@ createScene()
         
         if firstBody.categoryBitMask == PhysicsCatagory.Guava &&  secondBody.categoryBitMask == PhysicsCatagory.Boognish || firstBody.categoryBitMask == PhysicsCatagory.Boognish &&  secondBody.categoryBitMask == PhysicsCatagory.Guava{
             
-            score++
-            scoreLbl.text = "\(score)"
-            
-            
-            
-            
-            
+            scoreDidIncrease()
           
             
         }
