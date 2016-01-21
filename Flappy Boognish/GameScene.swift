@@ -39,15 +39,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let scoreLbl = SKLabelNode()
     let highScoreLbl = SKLabelNode()
-   
     
     
     var died = Bool()
     var gameStared = Bool()
+    
     var restartBTN = SKSpriteNode()
+    var stallion = SKSpriteNode()
+    var weasel = SKSpriteNode()
    
     
     let pipeGap = 150.0
+    
     
     //What happens when the score increases
     
@@ -57,7 +60,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLbl.text = "\(score)"
         scoreIncreased = true
         
+        
     }
+    
     
     //What happens when the game is restarted
     
@@ -83,6 +88,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
       
         //score Label
+        
         scoreLbl.position = CGPoint (x: self.frame.width / 2 , y: self.frame.height / 3 + self.frame.height / 2)
         scoreLbl.text = "\(score)"
         scoreLbl.fontColor = UIColor.brownColor()
@@ -90,6 +96,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLbl.fontSize = 100
         scoreLbl.zPosition = -10
        
+        //high score label
         
         highScoreLbl.position = CGPoint (x: self.frame.width / 1.65 , y: self.frame.height / 20 + self.frame.height / 5)
         highScoreLbl.text = "high score \(highScore)"
@@ -111,7 +118,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Repeat Background Image Forever
         
         
-        //loop background image infinitely
+             //loop background image infinitely
         
         func moveForeverAction() {
             let moveNode = SKAction.moveByX(0, y: background.size.height * 2.0 , duration: NSTimeInterval(0.01 * background.size.height * 2.0))
@@ -120,11 +127,53 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             background.runAction(moveNodeForever)
         }
         
+        // BACKGROUND SPRITES
         
+        func callBackground(){
+
+        
+        var stallionTexture = SKTexture(imageNamed: "stallion")
+        var weaselTexture = SKTexture(imageNamed: "weasel")
+        
+            
+            
+             // Sprites called
+         
+            if highScore > 20 {
+
+                    stallion = SKSpriteNode (texture: stallionTexture)
+                    stallion.position = CGPoint(x: self.frame.size.width * 0.398, y: self.frame.size.height * 0.45)
+                    stallion.zPosition = -1
+                    stallion.alpha = 0.15
+                
+                    
+                    addChild(stallion)
+                    }
+            if highScore > 40 {
+                    weasel = SKSpriteNode (texture: weaselTexture)
+                    weasel.position = CGPoint(x: self.frame.size.width / 1.65, y: self.frame.size.height / 2.42)
+                    weasel.zPosition = -2
+                    weasel.alpha = 0.2
+                    weasel.setScale(0.5)
+                
+                    addChild(weasel)
+                
+            }
+            
+        }
+            
+            
+            
+        
+        
+        callBackground()
+        
+       
         //Physics
         self.physicsWorld.gravity = CGVectorMake(0.0, -5.0)
         
         //Boognish
+        
         var BoognishTexture = SKTexture(imageNamed:"boog")
         BoognishTexture.filteringMode = SKTextureFilteringMode.Nearest
         
@@ -238,7 +287,7 @@ createScene()
         let pipePair = SKNode()
         pipePair.position = CGPointMake(self.frame.size.width + pipeUpTexture.size().width * 2, 0)
         
-        pipePair.zPosition = -10
+        pipePair.zPosition = 1
         
         let height = UInt32(self.frame.size.height / 4)
         let y = arc4random() % height + height
@@ -246,7 +295,7 @@ createScene()
         let pipeDown = SKSpriteNode(texture: pipeDownTexture)
         pipeDown.setScale(2.0)
         pipeDown.position = CGPointMake(0.0, CGFloat(y) + pipeDown.size.height + CGFloat(pipeGap))
-        
+     
         pipeDown.physicsBody = SKPhysicsBody(rectangleOfSize:pipeDown.size)
         pipeDown.physicsBody!.dynamic = false
         pipeDown.physicsBody?.categoryBitMask = PhysicsCatagory.Wall
@@ -283,13 +332,15 @@ createScene()
         guavaNode.position = CGPointMake(-1.5, CGFloat(y) * 1 + guavaNode.size.height + CGFloat(pipeGap))
         guavaNode.physicsBody = SKPhysicsBody(rectangleOfSize: guavaNode.size)
         guavaNode.physicsBody?.affectedByGravity = false
-        guavaNode.physicsBody?.dynamic = false
+        guavaNode.physicsBody?.dynamic = true
         guavaNode.physicsBody?.categoryBitMask = PhysicsCatagory.Guava
         guavaNode.physicsBody?.collisionBitMask = 1
         guavaNode.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
         
         guavaNode.runAction(GuavaMoveAndRemove)
+        guavaNode.zPosition = 0
         pipePair.addChild(guavaNode)
+        
         
         //the way the guava collide
         
