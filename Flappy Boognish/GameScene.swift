@@ -279,8 +279,8 @@ createScene()
         let guavaNode =  SKSpriteNode(texture: guavaNodeTexture)
       
         
-        guavaNode.setScale(0.6)
-        guavaNode.position = CGPointMake(-1.5, CGFloat(y) * 1.15 + guavaNode.size.height + CGFloat(pipeGap))
+        guavaNode.setScale(1.0)
+        guavaNode.position = CGPointMake(-1.5, CGFloat(y) * 1 + guavaNode.size.height + CGFloat(pipeGap))
         guavaNode.physicsBody = SKPhysicsBody(rectangleOfSize: guavaNode.size)
         guavaNode.physicsBody?.affectedByGravity = false
         guavaNode.physicsBody?.dynamic = false
