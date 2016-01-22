@@ -29,6 +29,7 @@
 		52D02D821C5084BB00596A46 /* PipeDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D02D811C5084BB00596A46 /* PipeDown.png */; };
 		52D02D8B1C51705200596A46 /* weasel.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D02D8A1C51705200596A46 /* weasel.png */; };
 		52EBB5B61C5203B000D6C203 /* pepper.png in Resources */ = {isa = PBXBuildFile; fileRef = 52EBB5B51C5203B000D6C203 /* pepper.png */; };
+		52EBB5B81C5277C000D6C203 /* boognishRising.png in Resources */ = {isa = PBXBuildFile; fileRef = 52EBB5B71C5277C000D6C203 /* boognishRising.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		52D02D811C5084BB00596A46 /* PipeDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PipeDown.png; sourceTree = "<group>"; };
 		52D02D8A1C51705200596A46 /* weasel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weasel.png; sourceTree = "<group>"; };
 		52EBB5B51C5203B000D6C203 /* pepper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pepper.png; sourceTree = "<group>"; };
+		52EBB5B71C5277C000D6C203 /* boognishRising.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boognishRising.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				527C68EC1C49CD630016CA6B /* ground.png */,
 				527C68F61C4A0DCA0016CA6B /* wall1.png */,
 				52D02D7F1C50767800596A46 /* stallion.png */,
+				52EBB5B71C5277C000D6C203 /* boognishRising.png */,
 				527C68FA1C4AE2170016CA6B /* guava.png */,
 				52D02D8A1C51705200596A46 /* weasel.png */,
 				52EBB5B51C5203B000D6C203 /* pepper.png */,
@@ -285,6 +288,7 @@
 				527C68FD1C4B78F30016CA6B /* boog.png in Resources */,
 				527C68C21C49CD350016CA6B /* Assets.xcassets in Resources */,
 				527C68F31C49DA640016CA6B /* background.png in Resources */,
+				52EBB5B81C5277C000D6C203 /* boognishRising.png in Resources */,
 				52D02D801C50767800596A46 /* stallion.png in Resources */,
 				52EBB5B61C5203B000D6C203 /* pepper.png in Resources */,
 				527C69071C4C82AE0016CA6B /* restart.png in Resources */,

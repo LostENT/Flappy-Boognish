@@ -49,9 +49,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var restartBTN = SKSpriteNode()
     var stallion = SKSpriteNode()
     var weasel = SKSpriteNode()
+    var boognishRising = SKSpriteNode()
    
     
-    let pipeGap = 220.0
+    let pipeGap = 210.0
     
     
     //What happens when the score increases
@@ -136,12 +137,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         var stallionTexture = SKTexture(imageNamed: "stallion")
         var weaselTexture = SKTexture(imageNamed: "weasel")
+        var boognishRisingTexture = SKTexture(imageNamed: "boognishRising")
         
             
             
              // Sprites called
          
-            if highScore > 0 {
+            if highScore > 20 {
 
                     stallion = SKSpriteNode (texture: stallionTexture)
                     stallion.position = CGPoint(x: self.frame.size.width * 0.398, y: self.frame.size.height * 0.45)
@@ -151,14 +153,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     
                     addChild(stallion)
                     }
-            if highScore > 0 {
+            if highScore > 40 {
                     weasel = SKSpriteNode (texture: weaselTexture)
-                    weasel.position = CGPoint(x: self.frame.size.width / 1.68, y: self.frame.size.height / 2.5)
+                    weasel.position = CGPoint(x: self.frame.size.width / 1.67, y: self.frame.size.height / 2.5)
                     weasel.zPosition = -2
                     weasel.alpha = 0.2
                     weasel.setScale(0.45)
                 
                     addChild(weasel)
+                
+            }
+            if highScore > 60 {
+                boognishRising = SKSpriteNode (texture: boognishRisingTexture)
+                boognishRising.position = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height / 1.25)
+                boognishRising.zPosition = -2
+                boognishRising.alpha = 0.2
+                boognishRising.setScale(0.70)
+                
+                addChild(boognishRising)
                 
             }
             
