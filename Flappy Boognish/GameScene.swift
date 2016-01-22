@@ -15,7 +15,7 @@ struct PhysicsCatagory {
     static let Ground : UInt32 = 0x1 << 2
     static let Wall : UInt32 = 0x1 << 3
     static let Guava : UInt32 = 0x1 << 4
-    static let LeftWall : UInt32 = 0x1 << 5
+    static let Pepper: UInt32 = 0x1 << 5
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -28,8 +28,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var pipeUpTexture = SKTexture()
     var pipeDownTexture = SKTexture()
     var guavaNodeTexture = SKTexture()
+    var pepperNodeTexture = SKTexture()
     var PipesMoveAndRemove = SKAction()
     var GuavaMoveAndRemove = SKAction()
+    var PepperMoveAndRemove = SKAction()
     var score = Int()
     var highScore = Int()
     var savedScore = Int()
@@ -49,7 +51,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var weasel = SKSpriteNode()
    
     
-    let pipeGap = 150.0
+    let pipeGap = 220.0
     
     
     //What happens when the score increases
@@ -139,7 +141,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
              // Sprites called
          
-            if highScore > 10 {
+            if highScore > 0 {
 
                     stallion = SKSpriteNode (texture: stallionTexture)
                     stallion.position = CGPoint(x: self.frame.size.width * 0.398, y: self.frame.size.height * 0.45)
@@ -149,12 +151,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     
                     addChild(stallion)
                     }
-            if highScore > 20 {
+            if highScore > 0 {
                     weasel = SKSpriteNode (texture: weaselTexture)
-                    weasel.position = CGPoint(x: self.frame.size.width / 1.65, y: self.frame.size.height / 2.42)
+                    weasel.position = CGPoint(x: self.frame.size.width / 1.68, y: self.frame.size.height / 2.5)
                     weasel.zPosition = -2
                     weasel.alpha = 0.2
-                    weasel.setScale(0.5)
+                    weasel.setScale(0.45)
                 
                     addChild(weasel)
                 
@@ -185,6 +187,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         boognish.physicsBody?.categoryBitMask = PhysicsCatagory.Boognish
         boognish.physicsBody?.collisionBitMask = PhysicsCatagory.Ground | PhysicsCatagory.Wall | PhysicsCatagory.Wall
         boognish.physicsBody?.contactTestBitMask = PhysicsCatagory.Ground | PhysicsCatagory.Wall | PhysicsCatagory.Guava
+        boognish.physicsBody?.contactTestBitMask = PhysicsCatagory.Ground | PhysicsCatagory.Wall | PhysicsCatagory.Pepper
         boognish.physicsBody!.dynamic = true
         boognish.physicsBody!.allowsRotation = false
         
@@ -234,6 +237,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Create the Guava
         guavaNodeTexture = SKTexture(imageNamed: "guava")
+        pepperNodeTexture = SKTexture(imageNamed: "pepper")
         
         
         
@@ -245,11 +249,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // movement of guavas
         let guavaToMove = CGFloat(self.frame.size.width + 2.0  * guavaNodeTexture.size().width)
-        let moveGuava = SKAction.moveByX(-guavaToMove, y: 0.0, duration: NSTimeInterval(0.01 * guavaToMove))
+        let moveGuava = SKAction.moveByX(-guavaToMove, y: self.frame.size.width, duration: NSTimeInterval(0.01 * guavaToMove))
         let removeGuava = SKAction.removeFromParent()
         
+        // movement of peppers
+        let pepperToMove = CGFloat(self.frame.size.width + 1.0  * pepperNodeTexture.size().width)
+        let movePepper = SKAction.moveByX(-pepperToMove, y: self.frame.size.width, duration: NSTimeInterval(0.01 * pepperToMove))
+        let removePepper = SKAction.removeFromParent()
         
         GuavaMoveAndRemove = SKAction.sequence([moveGuava,removeGuava])
+        
+        PepperMoveAndRemove = SKAction.sequence([movePepper,removePepper])
         
         PipesMoveAndRemove = SKAction.sequence([movePipes,removePipes])
         
@@ -257,18 +267,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let spawnP =  SKAction.runBlock({() in self.spawnPipes()})
         let spawnG =  SKAction.runBlock({() in self.spawnGuava()})
+        let spawnPep =  SKAction.runBlock({() in self.spawnPepper()})
         
         let delayP = SKAction.waitForDuration(NSTimeInterval(2.0))
         let delayG = SKAction.waitForDuration(NSTimeInterval(4.0))
+        let delayPep = SKAction.waitForDuration(NSTimeInterval(4.0))
         
         let spawnPThenDelay = SKAction .sequence([spawnP,delayP])
         let spawnPThenDelayForever = SKAction.repeatActionForever(spawnPThenDelay)
         
+        
         let spawnGThenDelay = SKAction .sequence([spawnG,delayG])
         let spawnGThenDelayForever = SKAction.repeatActionForever(spawnGThenDelay)
         
+        let spawnPepThenDelay = SKAction .sequence([spawnPep,delayPep])
+        let spawnPepThenDelayForever = SKAction.repeatActionForever(spawnPepThenDelay)
+        
         self.runAction(spawnPThenDelayForever)
         self.runAction(spawnGThenDelayForever)
+        self.runAction(spawnPepThenDelayForever)
         
     }
     
@@ -306,7 +323,47 @@ createScene()
             
         }
     }
-    
+    func spawnPepper(){
+        
+        //The way the Guava spawn and move
+        
+        let pepperNode = SKNode()
+        
+        let pepper = SKSpriteNode(texture: pepperNodeTexture)
+        
+        let height = UInt32(self.frame.size.height)
+        let y = arc4random() % height + height
+        
+        pepper.setScale(0.30)
+        pepper.position = CGPointMake (self.size.width + 140, self.size.height * 0.05)
+        pepper.alpha = 0.75
+        pepper.physicsBody = SKPhysicsBody(rectangleOfSize: pepper.size)
+        pepper.physicsBody?.affectedByGravity = false
+        pepper.physicsBody?.dynamic = true
+        pepper.physicsBody?.categoryBitMask = PhysicsCatagory.Guava
+        pepper.physicsBody?.collisionBitMask = 1
+        pepper.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
+        
+        pepper.zPosition = 0
+        
+        pepperNode.addChild(pepper)
+        
+        
+        pepper.runAction(PepperMoveAndRemove)
+        
+        self.addChild(pepperNode)
+        
+        
+        if scoreIncreased == true {
+            
+            
+        }
+        
+        
+        
+        //the way the guava collide
+        
+    }
 
     
     func spawnGuava(){
@@ -321,15 +378,16 @@ createScene()
         let y = arc4random() % height + height
     
         guava.setScale(0.75)
-        guava.position = CGPointMake (self.size.width, self.size.height * 0.65)
+        guava.position = CGPointMake (self.size.width - 40, self.size.height * 0.05)
         guava.physicsBody = SKPhysicsBody(rectangleOfSize: guava.size)
         guava.physicsBody?.affectedByGravity = false
         guava.physicsBody?.dynamic = true
+        guava.alpha = 0.75
         guava.physicsBody?.categoryBitMask = PhysicsCatagory.Guava
         guava.physicsBody?.collisionBitMask = 1
         guava.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
         
-        guava.zPosition = 10
+        guava.zPosition = 0
         
         guavaNode.addChild(guava)
         
@@ -349,6 +407,8 @@ createScene()
         //the way the guava collide
         
     }
+    
+
 
     func spawnPipes(){
         
