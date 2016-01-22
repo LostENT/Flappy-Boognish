@@ -52,7 +52,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var boognishRising = SKSpriteNode()
    
     
-    let pipeGap = 210.0
+    let pipeGap = 170.0
     
     
     //What happens when the score increases
@@ -67,20 +67,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    //What happens when the game is restarted
-    
-    func restartScene(){
-        
-        self.removeAllChildren()
-        self.removeAllActions()
-        died=false
-        gameStared = true
-        score = 0
-        highScoreLbl.text = "high score \(highScore)"
-        createScene()
-        
-        
-    }
+
     
     //What happens when the game starts
     
@@ -265,8 +252,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let removeGuava = SKAction.removeFromParent()
         
         // movement of peppers
-        let pepperToMove = CGFloat(self.frame.size.width + 1.0  * pepperNodeTexture.size().width)
+        let pepperToMove = CGFloat(pepperNodeTexture.size().width + 1.0 * self.frame.size.width)
         let movePepper = SKAction.moveByX(-pepperToMove, y: self.frame.size.width, duration: NSTimeInterval(0.01 * pepperToMove))
+            
+        
+        
         let removePepper = SKAction.removeFromParent()
         
         GuavaMoveAndRemove = SKAction.sequence([moveGuava,removeGuava])
@@ -343,9 +333,6 @@ createScene()
         
         let pepper = SKSpriteNode(texture: pepperNodeTexture)
         
-        let height = UInt32(self.frame.size.height)
-        let y = arc4random() % height + height
-        
         pepper.setScale(0.30)
         pepper.position = CGPointMake (self.size.width + 140, self.size.height * 0.05)
         pepper.alpha = 0.75
@@ -356,7 +343,7 @@ createScene()
         pepper.physicsBody?.collisionBitMask = 1
         pepper.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
         
-        pepper.zPosition = 0
+        pepper.zPosition = 50
         
         pepperNode.addChild(pepper)
         
@@ -385,9 +372,6 @@ createScene()
         let guavaNode = SKNode()
         
         let guava = SKSpriteNode(texture: guavaNodeTexture)
-        
-        let height = UInt32(self.frame.size.height)
-        let y = arc4random() % height + height
     
         guava.setScale(0.75)
         guava.position = CGPointMake (self.size.width - 40, self.size.height * 0.05)
@@ -531,6 +515,20 @@ createScene()
     
    override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+    }
+    //What happens when the game is restarted
+    
+    func restartScene(){
+        
+        self.removeAllChildren()
+        self.removeAllActions()
+        died=false
+        gameStared = true
+        score = 0
+        highScoreLbl.text = "high score \(highScore)"
+        createScene()
+        
+        
     }
 
 }
