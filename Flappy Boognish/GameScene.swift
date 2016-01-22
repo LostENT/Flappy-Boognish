@@ -208,10 +208,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.addChild(ground)
         
-        //Wall
+        /*Wall
         leftWall = SKSpriteNode (imageNamed: "wall2")
-        leftWall.setScale(5.0)
-        leftWall.position = CGPoint(x: 0, y: 0)
+        leftWall.setScale(2.0)
+        leftWall.position = CGPointMake(self.size.width, self.size.height)
         
         leftWall.physicsBody = SKPhysicsBody(rectangleOfSize: leftWall.size)
         leftWall.physicsBody?.categoryBitMask = PhysicsCatagory.Wall
@@ -220,8 +220,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         leftWall.physicsBody?.affectedByGravity = false
         leftWall.physicsBody?.dynamic = false
         
-        leftWall.zPosition = 50
-        
+        leftWall.zPosition = 20
+        self.addChild(leftWall)
+        */
         
         
         //Pipes
@@ -244,7 +245,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // movement of guavas
         let guavaToMove = CGFloat(self.frame.size.width + 2.0  * guavaNodeTexture.size().width)
-        let moveGuava = SKAction.moveByX(-distanceToMove, y: 0.0, duration: NSTimeInterval(0.01 * distanceToMove))
+        let moveGuava = SKAction.moveByX(-guavaToMove, y: 0.0, duration: NSTimeInterval(0.01 * guavaToMove))
         let removeGuava = SKAction.removeFromParent()
         
         
@@ -256,12 +257,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let spawnP =  SKAction.runBlock({() in self.spawnPipes()})
         let spawnG =  SKAction.runBlock({() in self.spawnGuava()})
-        let delay = SKAction.waitForDuration(NSTimeInterval(2.0))
         
-        let spawnPThenDelay = SKAction .sequence([spawnP,delay])
+        let delayP = SKAction.waitForDuration(NSTimeInterval(2.0))
+        let delayG = SKAction.waitForDuration(NSTimeInterval(4.0))
+        
+        let spawnPThenDelay = SKAction .sequence([spawnP,delayP])
         let spawnPThenDelayForever = SKAction.repeatActionForever(spawnPThenDelay)
         
-        let spawnGThenDelay = SKAction .sequence([spawnG,delay])
+        let spawnGThenDelay = SKAction .sequence([spawnG,delayG])
         let spawnGThenDelayForever = SKAction.repeatActionForever(spawnGThenDelay)
         
         self.runAction(spawnPThenDelayForever)
@@ -275,28 +278,49 @@ createScene()
         
     }
     
-    func createBTN(){
+
+    
+    //What happens when Boognish and Guava collide
+    
+    func didBeginContact(contact: SKPhysicsContact) {
         
-        //The restart button
         
-        restartBTN = SKSpriteNode(imageNamed: "restart")
-        restartBTN.setScale(0.25)
-        restartBTN.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
-        restartBTN.zPosition = 6
-        self.addChild(restartBTN)
+        let firstBody = contact.bodyA
+        let secondBody = contact.bodyB
         
+        
+        if firstBody.categoryBitMask == PhysicsCatagory.Guava &&  secondBody.categoryBitMask == PhysicsCatagory.Boognish || firstBody.categoryBitMask == PhysicsCatagory.Boognish &&  secondBody.categoryBitMask == PhysicsCatagory.Guava{
+            
+            scoreDidIncrease()
+            
+            scoreIncreased = true
+            
+            
+        }
+        
+        if firstBody.categoryBitMask == PhysicsCatagory.Boognish && secondBody.categoryBitMask == PhysicsCatagory.Wall || firstBody.categoryBitMask == PhysicsCatagory.Wall && secondBody.categoryBitMask == PhysicsCatagory.Boognish {
+            
+            died = true
+            
+            createBTN()
+            
+        }
     }
+    
+
     
     func spawnGuava(){
         
         //The way the Guava spawn and move
+        
+        let guavaNode = SKNode()
         
         let guava = SKSpriteNode(texture: guavaNodeTexture)
         
         let height = UInt32(self.frame.size.height)
         let y = arc4random() % height + height
     
-        guava.setScale(1.0)
+        guava.setScale(0.75)
         guava.position = CGPointMake (self.size.width, self.size.height * 0.65)
         guava.physicsBody = SKPhysicsBody(rectangleOfSize: guava.size)
         guava.physicsBody?.affectedByGravity = false
@@ -307,12 +331,18 @@ createScene()
         
         guava.zPosition = 10
         
+        guavaNode.addChild(guava)
         
         
         guava.runAction(GuavaMoveAndRemove)
         
-        self.addChild(guava)
+        self.addChild(guavaNode)
         
+       
+        if scoreIncreased == true {
+            
+            
+        }
         
         
         
@@ -365,34 +395,19 @@ createScene()
         
     
     
+    func createBTN(){
         
-    
-            
-    //What happens when Boognish and Guava collide
-    
-    func didBeginContact(contact: SKPhysicsContact) {
+        //The restart button
         
+        restartBTN = SKSpriteNode(imageNamed: "restart")
+        restartBTN.setScale(0.25)
+        restartBTN.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
+        restartBTN.zPosition = 6
+        self.addChild(restartBTN)
         
-        let firstBody = contact.bodyA
-        let secondBody = contact.bodyB
-        
-        
-        if firstBody.categoryBitMask == PhysicsCatagory.Guava &&  secondBody.categoryBitMask == PhysicsCatagory.Boognish || firstBody.categoryBitMask == PhysicsCatagory.Boognish &&  secondBody.categoryBitMask == PhysicsCatagory.Guava{
-            
-            scoreDidIncrease()
-          
-            
-        }
-        
-        if firstBody.categoryBitMask == PhysicsCatagory.Boognish && secondBody.categoryBitMask == PhysicsCatagory.Wall || firstBody.categoryBitMask == PhysicsCatagory.Wall && secondBody.categoryBitMask == PhysicsCatagory.Boognish {
-            
-            died = true
-            
-            createBTN()
-            
-        }
     }
     
+            
 
 
         
@@ -429,7 +444,6 @@ createScene()
             
             
             if died == true {
-                
                 
                 
                 if restartBTN.containsPoint(location){
