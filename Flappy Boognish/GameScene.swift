@@ -139,7 +139,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
              // Sprites called
          
-            if highScore > 20 {
+            if highScore > 10 {
 
                     stallion = SKSpriteNode (texture: stallionTexture)
                     stallion.position = CGPoint(x: self.frame.size.width * 0.398, y: self.frame.size.height * 0.45)
@@ -149,7 +149,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     
                     addChild(stallion)
                     }
-            if highScore > 40 {
+            if highScore > 20 {
                     weasel = SKSpriteNode (texture: weaselTexture)
                     weasel.position = CGPoint(x: self.frame.size.width / 1.65, y: self.frame.size.height / 2.42)
                     weasel.zPosition = -2
@@ -244,7 +244,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // movement of guavas
         let guavaToMove = CGFloat(self.frame.size.width + 2.0  * guavaNodeTexture.size().width)
-        let moveGuava = SKAction.moveByX(-distanceToMove, y: 0.0, duration: NSTimeInterval(1.0 * distanceToMove))
+        let moveGuava = SKAction.moveByX(-distanceToMove, y: 0.0, duration: NSTimeInterval(0.01 * distanceToMove))
         let removeGuava = SKAction.removeFromParent()
         
         
@@ -254,11 +254,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Spawn Pipes
         
-        let spawn =  SKAction.runBlock({() in self.spawnPipes()})
+        let spawnP =  SKAction.runBlock({() in self.spawnPipes()})
+        let spawnG =  SKAction.runBlock({() in self.spawnGuava()})
         let delay = SKAction.waitForDuration(NSTimeInterval(2.0))
-        let spawnThenDelay = SKAction .sequence([spawn, delay])
-        let spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
-        self.runAction(spawnThenDelayForever)
+        
+        let spawnPThenDelay = SKAction .sequence([spawnP,delay])
+        let spawnPThenDelayForever = SKAction.repeatActionForever(spawnPThenDelay)
+        
+        let spawnGThenDelay = SKAction .sequence([spawnG,delay])
+        let spawnGThenDelayForever = SKAction.repeatActionForever(spawnGThenDelay)
+        
+        self.runAction(spawnPThenDelayForever)
+        self.runAction(spawnGThenDelayForever)
         
     }
     
@@ -277,6 +284,39 @@ createScene()
         restartBTN.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
         restartBTN.zPosition = 6
         self.addChild(restartBTN)
+        
+    }
+    
+    func spawnGuava(){
+        
+        //The way the Guava spawn and move
+        
+        let guava = SKSpriteNode(texture: guavaNodeTexture)
+        
+        let height = UInt32(self.frame.size.height)
+        let y = arc4random() % height + height
+    
+        guava.setScale(1.0)
+        guava.position = CGPointMake (self.size.width, self.size.height * 0.65)
+        guava.physicsBody = SKPhysicsBody(rectangleOfSize: guava.size)
+        guava.physicsBody?.affectedByGravity = false
+        guava.physicsBody?.dynamic = true
+        guava.physicsBody?.categoryBitMask = PhysicsCatagory.Guava
+        guava.physicsBody?.collisionBitMask = 1
+        guava.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
+        
+        guava.zPosition = 10
+        
+        
+        
+        guava.runAction(GuavaMoveAndRemove)
+        
+        self.addChild(guava)
+        
+        
+        
+        
+        //the way the guava collide
         
     }
 
@@ -318,44 +358,15 @@ createScene()
         pipePair.runAction(PipesMoveAndRemove)
         
         
+        
         self.addChild(pipePair)
         
+    }
         
-        //The way the Guava spawn and move
+    
+    
         
-       
-        
-        let guavaNode =  SKSpriteNode(texture: guavaNodeTexture)
-      
-        
-        guavaNode.setScale(1.0)
-        guavaNode.position = CGPointMake(-1.5, CGFloat(y) * 1 + guavaNode.size.height + CGFloat(pipeGap))
-        guavaNode.physicsBody = SKPhysicsBody(rectangleOfSize: guavaNode.size)
-        guavaNode.physicsBody?.affectedByGravity = false
-        guavaNode.physicsBody?.dynamic = true
-        guavaNode.physicsBody?.categoryBitMask = PhysicsCatagory.Guava
-        guavaNode.physicsBody?.collisionBitMask = 1
-        guavaNode.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
-        
-        guavaNode.runAction(GuavaMoveAndRemove)
-        guavaNode.zPosition = 0
-        pipePair.addChild(guavaNode)
-        
-        
-        //the way the guava collide
-        
-        func guavaDidRemove() {
-            
-            if scoreIncreased == true{
-               
-                guavaVisible = false
-            }
-        }
-        
-        
-        
-        
-        }
+    
             
     //What happens when Boognish and Guava collide
     
