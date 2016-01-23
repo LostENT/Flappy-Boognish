@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		522B87041C535FD300308EA8 /* cockroach.png in Resources */ = {isa = PBXBuildFile; fileRef = 522B87031C535FD300308EA8 /* cockroach.png */; };
 		527C68B71C49CD350016CA6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527C68B61C49CD350016CA6B /* AppDelegate.swift */; };
 		527C68B91C49CD350016CA6B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 527C68B81C49CD350016CA6B /* GameScene.sks */; };
 		527C68BB1C49CD350016CA6B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527C68BA1C49CD350016CA6B /* GameScene.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		522B87031C535FD300308EA8 /* cockroach.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cockroach.png; sourceTree = "<group>"; };
 		527C68B31C49CD350016CA6B /* Flappy Boognish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flappy Boognish.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		527C68B61C49CD350016CA6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		527C68B81C49CD350016CA6B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				527C68F61C4A0DCA0016CA6B /* wall1.png */,
 				52D02D7F1C50767800596A46 /* stallion.png */,
 				52EBB5B71C5277C000D6C203 /* boognishRising.png */,
+				522B87031C535FD300308EA8 /* cockroach.png */,
 				527C68FA1C4AE2170016CA6B /* guava.png */,
 				52D02D8A1C51705200596A46 /* weasel.png */,
 				52EBB5B51C5203B000D6C203 /* pepper.png */,
@@ -295,6 +298,7 @@
 				527C68C01C49CD350016CA6B /* Main.storyboard in Resources */,
 				52D02D821C5084BB00596A46 /* PipeDown.png in Resources */,
 				52D02D8B1C51705200596A46 /* weasel.png in Resources */,
+				522B87041C535FD300308EA8 /* cockroach.png in Resources */,
 				527C68FB1C4AE2170016CA6B /* guava.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

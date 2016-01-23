@@ -49,6 +49,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var restartBTN = SKSpriteNode()
     var stallion = SKSpriteNode()
     var weasel = SKSpriteNode()
+    var roach = SKSpriteNode()
     var boognishRising = SKSpriteNode()
    
     
@@ -125,21 +126,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var stallionTexture = SKTexture(imageNamed: "stallion")
         var weaselTexture = SKTexture(imageNamed: "weasel")
         var boognishRisingTexture = SKTexture(imageNamed: "boognishRising")
+        var roachTexture = SKTexture(imageNamed: "cockroach")
         
             
             
              // Sprites called
          
             if highScore > 20 {
-
-                    stallion = SKSpriteNode (texture: stallionTexture)
-                    stallion.position = CGPoint(x: self.frame.size.width * 0.398, y: self.frame.size.height * 0.45)
-                    stallion.zPosition = -1
-                    stallion.alpha = 0.15
+                roach = SKSpriteNode (texture: roachTexture)
+                roach.position = CGPoint(x: self.frame.size.width / 1.85, y: self.frame.size.height / 1.96 )
+                roach.zPosition = -2
+                roach.alpha = 0.65
+                roach.setScale(0.60)
                 
-                    
-                    addChild(stallion)
-                    }
+                addChild(roach)
+                
+            }
+           
             if highScore > 40 {
                     weasel = SKSpriteNode (texture: weaselTexture)
                     weasel.position = CGPoint(x: self.frame.size.width / 1.67, y: self.frame.size.height / 2.5)
@@ -151,6 +154,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
             }
             if highScore > 60 {
+                
+                stallion = SKSpriteNode (texture: stallionTexture)
+                stallion.position = CGPoint(x: self.frame.size.width * 0.398, y: self.frame.size.height * 0.45)
+                stallion.zPosition = -1
+                stallion.alpha = 0.15
+                
+                
+                addChild(stallion)
+            }
+           
+            
+            if highScore > 80 {
                 boognishRising = SKSpriteNode (texture: boognishRisingTexture)
                 boognishRising.position = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height / 1.25)
                 boognishRising.zPosition = -2
