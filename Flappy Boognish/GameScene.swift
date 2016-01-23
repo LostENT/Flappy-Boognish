@@ -346,7 +346,7 @@ createScene()
         let pepper = SKSpriteNode(texture: pepperNodeTexture)
         
         pepper.setScale(0.30)
-        pepper.position = CGPointMake (self.size.width + 150, self.size.height * 1.20)
+        pepper.position = CGPointMake (self.size.width + 160, self.size.height * 1.20)
         pepper.alpha = 0.75
         pepper.physicsBody = SKPhysicsBody(rectangleOfSize: pepper.size)
         pepper.physicsBody?.affectedByGravity = false
