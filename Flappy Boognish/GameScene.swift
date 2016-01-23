@@ -252,11 +252,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let removeGuava = SKAction.removeFromParent()
         
         // movement of peppers
-        let pepperToMove = CGFloat(pepperNodeTexture.size().width + 1.0 * self.frame.size.width)
-        let movePepper = SKAction.moveByX(-pepperToMove, y: self.frame.size.width, duration: NSTimeInterval(0.01 * pepperToMove))
-            
-        
-        
+        let pepperToMove = CGFloat(self.frame.size.width + 2.0  * pepperNodeTexture.size().width)
+        let movePepper = SKAction.moveByX(-pepperToMove, y: self.frame.size.height / -1, duration: NSTimeInterval(0.01 * pepperToMove))
         let removePepper = SKAction.removeFromParent()
         
         GuavaMoveAndRemove = SKAction.sequence([moveGuava,removeGuava])
@@ -334,7 +331,7 @@ createScene()
         let pepper = SKSpriteNode(texture: pepperNodeTexture)
         
         pepper.setScale(0.30)
-        pepper.position = CGPointMake (self.size.width + 140, self.size.height * 0.05)
+        pepper.position = CGPointMake (self.size.width + 150, self.size.height * 1.20)
         pepper.alpha = 0.75
         pepper.physicsBody = SKPhysicsBody(rectangleOfSize: pepper.size)
         pepper.physicsBody?.affectedByGravity = false
@@ -343,7 +340,7 @@ createScene()
         pepper.physicsBody?.collisionBitMask = 1
         pepper.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
         
-        pepper.zPosition = 50
+        pepper.zPosition = 0
         
         pepperNode.addChild(pepper)
         
