@@ -108,6 +108,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		522B87051C5386FD00308EA8 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				527C68FC1C4B78F30016CA6B /* boog.png */,
+				527C68F41C49DFB50016CA6B /* bgmusic.mp3 */,
+				527C68EC1C49CD630016CA6B /* ground.png */,
+				527C68F61C4A0DCA0016CA6B /* wall1.png */,
+				52D02D7F1C50767800596A46 /* stallion.png */,
+				52EBB5B71C5277C000D6C203 /* boognishRising.png */,
+				522B87031C535FD300308EA8 /* cockroach.png */,
+				527C68FA1C4AE2170016CA6B /* guava.png */,
+				52D02D8A1C51705200596A46 /* weasel.png */,
+				52EBB5B51C5203B000D6C203 /* pepper.png */,
+				527C69061C4C82AE0016CA6B /* restart.png */,
+				527C68F21C49DA640016CA6B /* background.png */,
+				527C68F81C4A15210016CA6B /* wall2.png */,
+				52D02D811C5084BB00596A46 /* PipeDown.png */,
+				527C68E91C49CD5B0016CA6B /* PipeUp.png */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		527C68AA1C49CD350016CA6B = {
 			isa = PBXGroup;
 			children = (
@@ -137,21 +159,7 @@
 				527C68BC1C49CD350016CA6B /* GameViewController.swift */,
 				527C68BE1C49CD350016CA6B /* Main.storyboard */,
 				527C68C11C49CD350016CA6B /* Assets.xcassets */,
-				527C68FC1C4B78F30016CA6B /* boog.png */,
-				527C68F41C49DFB50016CA6B /* bgmusic.mp3 */,
-				527C68EC1C49CD630016CA6B /* ground.png */,
-				527C68F61C4A0DCA0016CA6B /* wall1.png */,
-				52D02D7F1C50767800596A46 /* stallion.png */,
-				52EBB5B71C5277C000D6C203 /* boognishRising.png */,
-				522B87031C535FD300308EA8 /* cockroach.png */,
-				527C68FA1C4AE2170016CA6B /* guava.png */,
-				52D02D8A1C51705200596A46 /* weasel.png */,
-				52EBB5B51C5203B000D6C203 /* pepper.png */,
-				527C69061C4C82AE0016CA6B /* restart.png */,
-				527C68F21C49DA640016CA6B /* background.png */,
-				527C68F81C4A15210016CA6B /* wall2.png */,
-				52D02D811C5084BB00596A46 /* PipeDown.png */,
-				527C68E91C49CD5B0016CA6B /* PipeUp.png */,
+				522B87051C5386FD00308EA8 /* Assets */,
 				527C68C31C49CD350016CA6B /* LaunchScreen.storyboard */,
 				527C68C61C49CD350016CA6B /* Info.plist */,
 			);

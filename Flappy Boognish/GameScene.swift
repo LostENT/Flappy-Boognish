@@ -34,7 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var PepperMoveAndRemove = SKAction()
     var score = Int()
     var highScore = Int()
-    var savedScore = Int()
+    var storedScore = Int()
 
     var scoreIncreased = Bool()
     var guavaVisible = Bool()
@@ -68,14 +68,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-
-    
     //What happens when the game starts
     
     func createScene(){
-        
-        
-        /* Setup your scene here */
         
       
         //score Label
@@ -99,7 +94,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         highScoreLbl.zPosition = 10
         
         
-        // Background
+        // background
         
         background = SKSpriteNode(imageNamed: "background")
         background.position = CGPointMake(self.size.width/2, self.size.height/2)
@@ -123,10 +118,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         func callBackground(){
 
         
-        var stallionTexture = SKTexture(imageNamed: "stallion")
-        var weaselTexture = SKTexture(imageNamed: "weasel")
-        var boognishRisingTexture = SKTexture(imageNamed: "boognishRising")
-        var roachTexture = SKTexture(imageNamed: "cockroach")
+        let stallionTexture = SKTexture(imageNamed: "stallion")
+        let weaselTexture = SKTexture(imageNamed: "weasel")
+        let boognishRisingTexture = SKTexture(imageNamed: "boognishRising")
+        let roachTexture = SKTexture(imageNamed: "cockroach")
         
             
             
@@ -139,7 +134,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 roach.alpha = 0.65
                 roach.setScale(0.60)
                 
-                addChild(roach)
+                    addChild(roach)
                 
             }
            
@@ -190,7 +185,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Boognish
         
-        var BoognishTexture = SKTexture(imageNamed:"boog")
+        let BoognishTexture = SKTexture(imageNamed:"boog")
         BoognishTexture.filteringMode = SKTextureFilteringMode.Nearest
         
         boognish = SKSpriteNode(texture: BoognishTexture)
@@ -302,13 +297,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.runAction(spawnPepThenDelayForever)
         
     }
-    
-    override func didMoveToView(view: SKView) {
-        
-createScene()
-        
-    }
-    
 
     
     //What happens when Boognish and Guava collide
@@ -346,7 +334,7 @@ createScene()
         let pepper = SKSpriteNode(texture: pepperNodeTexture)
         
         pepper.setScale(0.30)
-        pepper.position = CGPointMake (self.size.width + 160, self.size.height * 1.20)
+        pepper.position = CGPointMake (self.size.width + 360, self.size.height * 1.20)
         pepper.alpha = 0.75
         pepper.physicsBody = SKPhysicsBody(rectangleOfSize: pepper.size)
         pepper.physicsBody?.affectedByGravity = false
@@ -386,7 +374,7 @@ createScene()
         let guava = SKSpriteNode(texture: guavaNodeTexture)
     
         guava.setScale(0.75)
-        guava.position = CGPointMake (self.size.width - 40, self.size.height * 0.05)
+        guava.position = CGPointMake (self.size.width + 160, self.size.height * 0.05)
         guava.physicsBody = SKPhysicsBody(rectangleOfSize: guava.size)
         guava.physicsBody?.affectedByGravity = false
         guava.physicsBody?.dynamic = true
@@ -487,7 +475,7 @@ createScene()
         
         for touch: AnyObject in touches {
             
-            let location = touch.locationInNode(self)
+            _ = touch.locationInNode(self)
             
             boognish.physicsBody?.velocity = CGVectorMake(0, 0)
             boognish.physicsBody?.applyImpulse(CGVectorMake(0,25))
@@ -542,5 +530,11 @@ createScene()
         
         
     }
+    override func didMoveToView(view: SKView) {
+        
+        createScene()
+        
+    }
+    
 
 }
