@@ -11,6 +11,7 @@ import SpriteKit
 
 struct PhysicsCatagory {
     
+    static let None : UInt32 = 0
     static let Boognish : UInt32 = 0x1 << 1
     static let Ground : UInt32 = 0x1 << 2
     static let Wall : UInt32 = 0x1 << 3
@@ -32,17 +33,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var PipesMoveAndRemove = SKAction()
     var GuavaMoveAndRemove = SKAction()
     var PepperMoveAndRemove = SKAction()
+    var GuavaRemove = SKAction()
     var score = Int()
     var highScore = Int()
     var storedScore = Int()
 
-    var scoreIncreased = Bool()
     var guavaVisible = Bool()
     
     let scoreLbl = SKLabelNode()
     let highScoreLbl = SKLabelNode()
-    
-    
+  
     var died = Bool()
     var gameStared = Bool()
     
@@ -62,7 +62,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         score++
         scoreLbl.text = "\(score)"
-        scoreIncreased = true
+        
         
         
     }
@@ -72,10 +72,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func createScene(){
         
+        
+        
       
         //score Label
         
-        scoreLbl.position = CGPoint (x: self.frame.width / 2 , y: self.frame.height / 3 + self.frame.height / 2)
+        scoreLbl.position = CGPoint (x: self.frame.width / 1.55 , y: self.frame.height / 3 + self.frame.height / 1.85)
         scoreLbl.text = "\(score)"
         scoreLbl.fontColor = UIColor.brownColor()
         self.addChild(scoreLbl)
@@ -172,17 +174,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
         }
-            
-            
-            
-        
         
         callBackground()
-        
-       
-        //Physics
-        self.physicsWorld.gravity = CGVectorMake(0.0, -5.0)
-        
         //Boognish
         
         let BoognishTexture = SKTexture(imageNamed:"boog")
@@ -194,16 +187,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         boognish.physicsBody = SKPhysicsBody(circleOfRadius: boognish.size.height / 2)
         boognish.physicsBody?.categoryBitMask = PhysicsCatagory.Boognish
-        boognish.physicsBody?.collisionBitMask = PhysicsCatagory.Ground | PhysicsCatagory.Wall | PhysicsCatagory.Wall
+        boognish.physicsBody?.collisionBitMask = PhysicsCatagory.Ground |  PhysicsCatagory.Wall
         boognish.physicsBody?.contactTestBitMask = PhysicsCatagory.Ground | PhysicsCatagory.Wall | PhysicsCatagory.Guava
-        boognish.physicsBody?.contactTestBitMask = PhysicsCatagory.Ground | PhysicsCatagory.Wall | PhysicsCatagory.Pepper
         boognish.physicsBody!.dynamic = true
         boognish.physicsBody!.allowsRotation = false
         
         self.addChild(boognish)
         
-        //Ground
+       
+        //Physics
+        self.physicsWorld.gravity = CGVectorMake(0.0, -5.0)
         self.physicsWorld.contactDelegate = self
+
+        
+        //Ground
+       
         
         ground = SKSpriteNode (imageNamed: "ground")
         ground.setScale(2.0)
@@ -220,6 +218,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.addChild(ground)
         
+        
+        
         /*Wall
         leftWall = SKSpriteNode (imageNamed: "wall2")
         leftWall.setScale(2.0)
@@ -235,6 +235,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         leftWall.zPosition = 20
         self.addChild(leftWall)
         */
+
+// CREATE MAJOR ASSETS
+        
+        //SPAWN ITEMS
+        
+        
+        //Pepper
         
         
         //Pipes
@@ -268,15 +275,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         GuavaMoveAndRemove = SKAction.sequence([moveGuava,removeGuava])
         
+        GuavaRemove = SKAction.sequence([removeGuava])
+        
         PepperMoveAndRemove = SKAction.sequence([movePepper,removePepper])
         
         PipesMoveAndRemove = SKAction.sequence([movePipes,removePipes])
         
         //Spawn Pipes
         
-        let spawnP =  SKAction.runBlock({() in self.spawnPipes()})
-        let spawnG =  SKAction.runBlock({() in self.spawnGuava()})
-        let spawnPep =  SKAction.runBlock({() in self.spawnPepper()})
+        let spawnP =  SKAction.runBlock({self.spawnPipes()})
+        let spawnG =  SKAction.runBlock({self.spawnGuava()})
+        let spawnPep =  SKAction.runBlock({self.spawnPepper()})
         
         let delayP = SKAction.waitForDuration(NSTimeInterval(2.0))
         let delayG = SKAction.waitForDuration(NSTimeInterval(4.0))
@@ -296,27 +305,160 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.runAction(spawnGThenDelayForever)
         self.runAction(spawnPepThenDelayForever)
         
+        
     }
 
+        
+        func spawnPepper(){
+            
+            //The way the Guava spawn and move
+            
+            let pepperNode = SKNode()
+            
+            let pepper = SKSpriteNode(texture: pepperNodeTexture)
+            
+            pepper.setScale(0.30)
+            pepper.position = CGPointMake (self.size.width + 360, self.size.height * 1.20)
+            pepper.alpha = 0.75
+            pepper.physicsBody = SKPhysicsBody(rectangleOfSize: pepper.size)
+            pepper.physicsBody?.affectedByGravity = false
+            pepper.physicsBody?.dynamic = true
+            pepper.physicsBody?.categoryBitMask = PhysicsCatagory.Guava
+            pepper.physicsBody?.collisionBitMask = PhysicsCatagory.None
+            pepper.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
+            
+            pepper.zPosition = 0
+            
+            pepperNode.addChild(pepper)
+            
+            
+            pepper.runAction(PepperMoveAndRemove)
+            
+            self.addChild(pepperNode)
+            
+            
+            //the way the guava collide
+            
+        }
+        
+        
+        
+        
+        func spawnGuava(){
+            
+            //The way the Guava spawn and move
+            
+            let guavaNode = SKNode()
+            let guava = SKSpriteNode(texture: guavaNodeTexture)
+            
+            guava.setScale(0.75)
+            guava.position = CGPointMake (self.size.width + 160, self.size.height * 0.05)
+            guava.physicsBody = SKPhysicsBody(rectangleOfSize: guava.size)
+            guava.physicsBody?.affectedByGravity = false
+            guava.physicsBody?.dynamic = true
+            guava.alpha = 0.75
+            guava.physicsBody?.categoryBitMask = PhysicsCatagory.Guava
+            guava.physicsBody?.collisionBitMask = PhysicsCatagory.None
+            guava.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
+            guava.zPosition = 0
+            
+            guava.runAction(GuavaMoveAndRemove)
+            
+            
+            
+            addChild(guava)
+            addChild(guavaNode)
+
+            
+            //the way the guava collide
+            
+            
+            
+        }
+    func didCollideWithGuava(contact: SKPhysicsContact){
+        
+        let firstBody = contact.bodyA
+        let secondBody = contact.bodyB
+        let guava = SKSpriteNode(texture: guavaNodeTexture)
+        
+        if firstBody.collisionBitMask == PhysicsCatagory.Boognish && secondBody.collisionBitMask == PhysicsCatagory.Guava || firstBody.collisionBitMask == PhysicsCatagory.Boognish &&  secondBody.collisionBitMask == PhysicsCatagory.Guava  {
+            
+            guava.runAction(GuavaRemove)
+            
+        }
+        
+    }
     
-    //What happens when Boognish and Guava collide
+    
+    
+        func boognishAtePepper(boognish:SKSpriteNode, pepper:SKSpriteNode){
+                    }
+        
+        
+        
+        func spawnPipes(){
+            
+            //the way the Pipes spawn and move
+            
+            let pipePair = SKNode()
+            pipePair.position = CGPointMake(self.frame.size.width + pipeUpTexture.size().width * 2, 0)
+            
+            pipePair.zPosition = 1
+            
+            let height = UInt32(self.frame.size.height / 4)
+            let y = arc4random() % height + height
+            
+            let pipeDown = SKSpriteNode(texture: pipeDownTexture)
+            pipeDown.setScale(2.0)
+            pipeDown.position = CGPointMake(0.0, CGFloat(y) + pipeDown.size.height + CGFloat(pipeGap))
+            
+            pipeDown.physicsBody = SKPhysicsBody(rectangleOfSize:pipeDown.size)
+            pipeDown.physicsBody!.dynamic = false
+            pipeDown.physicsBody?.categoryBitMask = PhysicsCatagory.Wall
+            pipeDown.physicsBody?.collisionBitMask = 1
+            pipeDown.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
+            pipePair.addChild(pipeDown)
+            
+            let pipeUp = SKSpriteNode(texture: pipeUpTexture)
+            pipeUp.setScale(2.0)
+            pipeUp.position = CGPointMake(0.0, CGFloat(y))
+            
+            pipeUp.physicsBody = SKPhysicsBody(rectangleOfSize: pipeUp.size)
+            pipeUp.physicsBody!.dynamic = false
+            pipeUp.physicsBody?.categoryBitMask = PhysicsCatagory.Wall
+            pipeUp.physicsBody?.collisionBitMask = 1
+            pipeUp.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
+            pipePair.addChild(pipeUp)
+            
+            
+            pipePair.runAction(PipesMoveAndRemove)
+            
+            
+            
+            self.addChild(pipePair)
+            //END SPAWN ITEMS
+        }
+
+        
+        
+        
+
+
     
     func didBeginContact(contact: SKPhysicsContact) {
         
         
         let firstBody = contact.bodyA
         let secondBody = contact.bodyB
-        
+
         
         if firstBody.categoryBitMask == PhysicsCatagory.Guava &&  secondBody.categoryBitMask == PhysicsCatagory.Boognish || firstBody.categoryBitMask == PhysicsCatagory.Boognish &&  secondBody.categoryBitMask == PhysicsCatagory.Guava{
             
             scoreDidIncrease()
             
-            scoreIncreased = true
-            
             
         }
-        
+    
         if firstBody.categoryBitMask == PhysicsCatagory.Boognish && secondBody.categoryBitMask == PhysicsCatagory.Wall || firstBody.categoryBitMask == PhysicsCatagory.Wall && secondBody.categoryBitMask == PhysicsCatagory.Boognish {
             
             died = true
@@ -325,131 +467,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
     }
-    func spawnPepper(){
-        
-        //The way the Guava spawn and move
-        
-        let pepperNode = SKNode()
-        
-        let pepper = SKSpriteNode(texture: pepperNodeTexture)
-        
-        pepper.setScale(0.30)
-        pepper.position = CGPointMake (self.size.width + 360, self.size.height * 1.20)
-        pepper.alpha = 0.75
-        pepper.physicsBody = SKPhysicsBody(rectangleOfSize: pepper.size)
-        pepper.physicsBody?.affectedByGravity = false
-        pepper.physicsBody?.dynamic = true
-        pepper.physicsBody?.categoryBitMask = PhysicsCatagory.Guava
-        pepper.physicsBody?.collisionBitMask = 1
-        pepper.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
-        
-        pepper.zPosition = 0
-        
-        pepperNode.addChild(pepper)
-        
-        
-        pepper.runAction(PepperMoveAndRemove)
-        
-        self.addChild(pepperNode)
-        
-        
-        if scoreIncreased == true {
-            
-            
-        }
-        
-        
-        
-        //the way the guava collide
-        
-    }
-
-    
-    func spawnGuava(){
-        
-        //The way the Guava spawn and move
-        
-        let guavaNode = SKNode()
-        
-        let guava = SKSpriteNode(texture: guavaNodeTexture)
-    
-        guava.setScale(0.75)
-        guava.position = CGPointMake (self.size.width + 160, self.size.height * 0.05)
-        guava.physicsBody = SKPhysicsBody(rectangleOfSize: guava.size)
-        guava.physicsBody?.affectedByGravity = false
-        guava.physicsBody?.dynamic = true
-        guava.alpha = 0.75
-        guava.physicsBody?.categoryBitMask = PhysicsCatagory.Guava
-        guava.physicsBody?.collisionBitMask = 1
-        guava.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
-        
-        guava.zPosition = 0
-        
-        guavaNode.addChild(guava)
-        
-        
-        guava.runAction(GuavaMoveAndRemove)
-        
-        self.addChild(guavaNode)
-        
-       
-        if scoreIncreased == true {
-            
-            
-        }
-        
-        
-        
-        //the way the guava collide
-        
-    }
-    
-
-
-    func spawnPipes(){
-        
-        //the way the Pipes spawn and move
-        
-        let pipePair = SKNode()
-        pipePair.position = CGPointMake(self.frame.size.width + pipeUpTexture.size().width * 2, 0)
-        
-        pipePair.zPosition = 1
-        
-        let height = UInt32(self.frame.size.height / 4)
-        let y = arc4random() % height + height
-        
-        let pipeDown = SKSpriteNode(texture: pipeDownTexture)
-        pipeDown.setScale(2.0)
-        pipeDown.position = CGPointMake(0.0, CGFloat(y) + pipeDown.size.height + CGFloat(pipeGap))
-     
-        pipeDown.physicsBody = SKPhysicsBody(rectangleOfSize:pipeDown.size)
-        pipeDown.physicsBody!.dynamic = false
-        pipeDown.physicsBody?.categoryBitMask = PhysicsCatagory.Wall
-        pipeDown.physicsBody?.collisionBitMask = 1
-        pipeDown.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
-        pipePair.addChild(pipeDown)
-        
-        let pipeUp = SKSpriteNode(texture: pipeUpTexture)
-        pipeUp.setScale(2.0)
-        pipeUp.position = CGPointMake(0.0, CGFloat(y))
-        
-        pipeUp.physicsBody = SKPhysicsBody(rectangleOfSize: pipeUp.size)
-        pipeUp.physicsBody!.dynamic = false
-        pipeUp.physicsBody?.categoryBitMask = PhysicsCatagory.Wall
-        pipeUp.physicsBody?.collisionBitMask = 1
-        pipeUp.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
-        pipePair.addChild(pipeUp)
-        
-        
-        pipePair.runAction(PipesMoveAndRemove)
-        
-        
-        
-        self.addChild(pipePair)
-        
-    }
-        
-    
     
     func createBTN(){
         
@@ -530,6 +547,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
     }
+    
     override func didMoveToView(view: SKView) {
         
         createScene()
