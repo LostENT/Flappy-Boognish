@@ -17,6 +17,7 @@ struct PhysicsCatagory {
     static let Wall : UInt32 = 0x1 << 3
     static let Guava : UInt32 = 0x1 << 4
     static let Pepper: UInt32 = 0x1 << 5
+    static let Phish : UInt32 = 0x1 << 6
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -24,6 +25,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var boognish = SKSpriteNode()
     var background = SKSpriteNode()
     var ground = SKSpriteNode()
+    var phish = SKSpriteNode()
     var leftWall = SKSpriteNode()
     var rightWall = SKNode()
     var pipeUpTexture = SKTexture()
@@ -53,7 +55,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var boognishRising = SKSpriteNode()
    
     
-    let pipeGap = 170.0
+    let pipeGap = 120.0
     
     
     //What happens when the score increases
@@ -87,7 +89,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //high score label
         NSUserDefaults.standardUserDefaults().setInteger(highScore, forKey: "Highscore")
         highScoreLbl.position = CGPoint (x: self.frame.width / 1.65 , y: self.frame.height / 20 + self.frame.height / 5)
-        highScoreLbl.text = "high score \(highScore)"
+        highScoreLbl.text = "high score: \(highScore)"
         self.addChild(highScoreLbl)
         highScoreLbl.fontColor = UIColor.brownColor()
         highScoreLbl.fontSize = 30
@@ -183,12 +185,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         boognish = SKSpriteNode(texture: BoognishTexture)
         boognish.setScale(0.5)
-        boognish.position = CGPoint(x: self.frame.size.width * 0.50, y: self.frame.size.height * 0.6)
+        boognish.position = CGPoint(x: self.frame.size.width * 0.60, y: self.frame.size.height * 0.6)
         
         boognish.physicsBody = SKPhysicsBody(circleOfRadius: boognish.size.height / 2)
         boognish.physicsBody?.categoryBitMask = PhysicsCatagory.Boognish
-        boognish.physicsBody?.collisionBitMask = PhysicsCatagory.Ground |  PhysicsCatagory.Wall
-        boognish.physicsBody?.contactTestBitMask = PhysicsCatagory.Ground | PhysicsCatagory.Wall | PhysicsCatagory.Guava
+        boognish.physicsBody?.collisionBitMask = PhysicsCatagory.Ground |  PhysicsCatagory.Wall | PhysicsCatagory.Phish
+        boognish.physicsBody?.contactTestBitMask = PhysicsCatagory.Ground | PhysicsCatagory.Wall | PhysicsCatagory.Guava | PhysicsCatagory.Phish
         boognish.physicsBody!.dynamic = true
         boognish.physicsBody!.allowsRotation = false
         
@@ -209,7 +211,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         ground.physicsBody = SKPhysicsBody(rectangleOfSize: ground.size)
         ground.physicsBody?.categoryBitMask = PhysicsCatagory.Ground
-        ground.physicsBody?.collisionBitMask = PhysicsCatagory.Boognish
+        ground.physicsBody?.collisionBitMask = 1
         ground.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
         ground.physicsBody?.affectedByGravity = false
         ground.physicsBody?.dynamic = false
@@ -217,6 +219,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ground.zPosition = 3
         
         self.addChild(ground)
+        
+        //Phish
+        phish = SKSpriteNode (imageNamed: "phish")
+        phish.setScale(1.0)
+        phish.position = CGPoint(x: self.frame.width / 3.15, y: 130 + phish.frame.height / 1.5 )
+        
+        phish.physicsBody = SKPhysicsBody(rectangleOfSize: phish.size)
+        phish.physicsBody?.categoryBitMask = PhysicsCatagory.Phish
+        phish.physicsBody?.collisionBitMask = 1
+        phish.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
+        phish.physicsBody?.dynamic = false
+        
+        phish.zPosition = -1
+        
+        self.addChild(phish)
         
         
         
@@ -459,7 +476,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
     
-        if firstBody.categoryBitMask == PhysicsCatagory.Boognish && secondBody.categoryBitMask == PhysicsCatagory.Wall || firstBody.categoryBitMask == PhysicsCatagory.Wall && secondBody.categoryBitMask == PhysicsCatagory.Boognish {
+        if firstBody.categoryBitMask == PhysicsCatagory.Boognish && secondBody.categoryBitMask == PhysicsCatagory.Phish || firstBody.categoryBitMask == PhysicsCatagory.Phish && secondBody.categoryBitMask == PhysicsCatagory.Boognish {
             
             died = true
             

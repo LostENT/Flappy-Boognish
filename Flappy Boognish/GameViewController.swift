@@ -39,7 +39,7 @@ class GameViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         
-        let bgMusicURL:NSURL = NSBundle.mainBundle().URLForResource("bgmusic", withExtension: "mp3")!     // Add ! at the end
+        let bgMusicURL:NSURL = NSBundle.mainBundle().URLForResource("bgMusic", withExtension: "mp3")!     // Add ! at the end
         
         backgroundMusicPlayer = try!  AVAudioPlayer(contentsOfURL: bgMusicURL)     // Add try!
         backgroundMusicPlayer.numberOfLoops = -1
