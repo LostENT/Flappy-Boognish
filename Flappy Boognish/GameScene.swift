@@ -177,28 +177,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // background
         
+     
+        
+        // Repeat Background Image Forever
+        
         background = SKSpriteNode(imageNamed: "background")
         background.position = CGPointMake(self.size.width/2, self.size.height/2)
         addChild(background)
         background.zPosition = -11
+
         
-        // Repeat Background Image Forever
+        func backGroundMoveForever() {
+            
+            //BROKEN
         
-        
-             //loop background image infinitely
-        
-        func moveForeverAction() {
-            let moveNode = SKAction.moveByX(0, y: background.size.height * 2.0 , duration: NSTimeInterval(0.01 * background.size.height * 2.0))
-            let resetPosition = SKAction.moveByX(0, y:  background.size.height * 2.0, duration: 0)
+            let moveNode = SKAction.moveByX(background.size.height * 2.0, y: 0  , duration: NSTimeInterval(0.01 * background.size.height * 2.0))
+            
+            let resetPosition = SKAction.moveByX(background.size.height * -2.0, y: 0, duration: NSTimeInterval(0.01 * background.size.height * 2.0))
+            
             let moveNodeForever = SKAction.repeatActionForever(SKAction.sequence([moveNode, resetPosition]))
+            
             background.runAction(moveNodeForever)
         }
         
 
         
         
-        
-        //Boognish
+        //Boognish Properties
         
         let BoognishTexture = SKTexture(imageNamed:"boog")
         BoognishTexture.filteringMode = SKTextureFilteringMode.Nearest
@@ -256,39 +261,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(phish)
         
         
-        
-        /*Wall
-        leftWall = SKSpriteNode (imageNamed: "wall2")
-        leftWall.setScale(2.0)
-        leftWall.position = CGPointMake(self.size.width, self.size.height)
-        
-        leftWall.physicsBody = SKPhysicsBody(rectangleOfSize: leftWall.size)
-        leftWall.physicsBody?.categoryBitMask = PhysicsCatagory.Wall
-        leftWall.physicsBody?.collisionBitMask = PhysicsCatagory.Boognish
-        leftWall.physicsBody?.contactTestBitMask = PhysicsCatagory.Boognish
-        leftWall.physicsBody?.affectedByGravity = false
-        leftWall.physicsBody?.dynamic = false
-        
-        leftWall.zPosition = 20
-        self.addChild(leftWall)
-        */
-
-// CREATE MAJOR ASSETS
+        // CREATE MAJOR ASSETS
         
 
-        
-        //Create the Pipes
-        
-        pipeUpTexture = SKTexture(imageNamed: "PipeUp")
-        pipeDownTexture = SKTexture(imageNamed: "PipeDown")
-        
-        //Create the Guava
-        
-        pepperNodeTexture = SKTexture(imageNamed: "pepper")
-        
-        //Create the Beam
-        
-        
+   
         
         
 
@@ -310,13 +286,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let spawnPThenDelayForever = SKAction.repeatActionForever(spawnPThenDelay)
         self.runAction(spawnPThenDelayForever)
         
-       
         
         let spawnPep =  SKAction.runBlock({self.spawnPepper()})
         let delayPep = SKAction.waitForDuration(NSTimeInterval(4.0))
         let spawnPepThenDelay = SKAction .sequence([spawnPep,delayPep])
         let spawnPepThenDelayForever = SKAction.repeatActionForever(spawnPepThenDelay)
         self.runAction(spawnPepThenDelayForever)
+        
         
         let spawnG =  SKAction.runBlock({self.spawnGuava()})
         let delayG = SKAction.waitForDuration(NSTimeInterval(4.0))
@@ -329,6 +305,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         
         func spawnPepper(){
+            
+            pepperNodeTexture = SKTexture(imageNamed: "pepper")
             
             //move the Peppers
           
@@ -359,6 +337,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             
             pepper.runAction(PepperMoveAndRemove)
+            
             
             self.addChild(pepperNode)
             
@@ -432,6 +411,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         func spawnPipes(){
+
+            pipeUpTexture = SKTexture(imageNamed: "PipeUp")
+            pipeDownTexture = SKTexture(imageNamed: "PipeDown")
             
             
             //Move  the Pipes
