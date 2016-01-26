@@ -25,11 +25,13 @@
 		527C68FB1C4AE2170016CA6B /* guava.png in Resources */ = {isa = PBXBuildFile; fileRef = 527C68FA1C4AE2170016CA6B /* guava.png */; };
 		527C68FD1C4B78F30016CA6B /* boog.png in Resources */ = {isa = PBXBuildFile; fileRef = 527C68FC1C4B78F30016CA6B /* boog.png */; };
 		527C69071C4C82AE0016CA6B /* restart.png in Resources */ = {isa = PBXBuildFile; fileRef = 527C69061C4C82AE0016CA6B /* restart.png */; };
-		52BEC9801C55741600AE3411 /* bgMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 52BEC97F1C55741600AE3411 /* bgMusic.mp3 */; };
 		52BEC9841C55973100AE3411 /* phish.png in Resources */ = {isa = PBXBuildFile; fileRef = 52BEC9831C55973100AE3411 /* phish.png */; };
+		52BEC9861C55B91200AE3411 /* beam.png in Resources */ = {isa = PBXBuildFile; fileRef = 52BEC9851C55B91200AE3411 /* beam.png */; };
 		52D02D801C50767800596A46 /* stallion.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D02D7F1C50767800596A46 /* stallion.png */; };
 		52D02D821C5084BB00596A46 /* PipeDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D02D811C5084BB00596A46 /* PipeDown.png */; };
 		52D02D8B1C51705200596A46 /* weasel.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D02D8A1C51705200596A46 /* weasel.png */; };
+		52E150701C56F1AB00472BE5 /* bgMusic1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 52E1506F1C56F1AB00472BE5 /* bgMusic1.mp3 */; };
+		52E150721C57158E00472BE5 /* bgMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 52E150711C57158E00472BE5 /* bgMusic.mp3 */; };
 		52EBB5B61C5203B000D6C203 /* pepper.png in Resources */ = {isa = PBXBuildFile; fileRef = 52EBB5B51C5203B000D6C203 /* pepper.png */; };
 		52EBB5B81C5277C000D6C203 /* boognishRising.png in Resources */ = {isa = PBXBuildFile; fileRef = 52EBB5B71C5277C000D6C203 /* boognishRising.png */; };
 /* End PBXBuildFile section */
@@ -76,11 +78,13 @@
 		527C68FA1C4AE2170016CA6B /* guava.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guava.png; sourceTree = "<group>"; };
 		527C68FC1C4B78F30016CA6B /* boog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boog.png; sourceTree = "<group>"; };
 		527C69061C4C82AE0016CA6B /* restart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restart.png; sourceTree = "<group>"; };
-		52BEC97F1C55741600AE3411 /* bgMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgMusic.mp3; sourceTree = "<group>"; };
 		52BEC9831C55973100AE3411 /* phish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phish.png; sourceTree = "<group>"; };
+		52BEC9851C55B91200AE3411 /* beam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beam.png; sourceTree = "<group>"; };
 		52D02D7F1C50767800596A46 /* stallion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stallion.png; sourceTree = "<group>"; };
 		52D02D811C5084BB00596A46 /* PipeDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PipeDown.png; sourceTree = "<group>"; };
 		52D02D8A1C51705200596A46 /* weasel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weasel.png; sourceTree = "<group>"; };
+		52E1506F1C56F1AB00472BE5 /* bgMusic1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgMusic1.mp3; sourceTree = "<group>"; };
+		52E150711C57158E00472BE5 /* bgMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgMusic.mp3; sourceTree = "<group>"; };
 		52EBB5B51C5203B000D6C203 /* pepper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pepper.png; sourceTree = "<group>"; };
 		52EBB5B71C5277C000D6C203 /* boognishRising.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boognishRising.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,14 +117,16 @@
 		522B87051C5386FD00308EA8 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				52BEC97F1C55741600AE3411 /* bgMusic.mp3 */,
 				527C68FC1C4B78F30016CA6B /* boog.png */,
+				52E1506F1C56F1AB00472BE5 /* bgMusic1.mp3 */,
 				527C68EC1C49CD630016CA6B /* ground.png */,
 				527C68F61C4A0DCA0016CA6B /* wall1.png */,
+				52E150711C57158E00472BE5 /* bgMusic.mp3 */,
 				52D02D7F1C50767800596A46 /* stallion.png */,
 				52BEC9831C55973100AE3411 /* phish.png */,
 				52EBB5B71C5277C000D6C203 /* boognishRising.png */,
 				522B87031C535FD300308EA8 /* cockroach.png */,
+				52BEC9851C55B91200AE3411 /* beam.png */,
 				527C68FA1C4AE2170016CA6B /* guava.png */,
 				52D02D8A1C51705200596A46 /* weasel.png */,
 				52EBB5B51C5203B000D6C203 /* pepper.png */,
@@ -294,20 +300,22 @@
 			files = (
 				527C68B91C49CD350016CA6B /* GameScene.sks in Resources */,
 				527C68EB1C49CD5B0016CA6B /* PipeUp.png in Resources */,
+				52E150701C56F1AB00472BE5 /* bgMusic1.mp3 in Resources */,
 				527C68F91C4A15210016CA6B /* wall2.png in Resources */,
 				527C68F71C4A0DCA0016CA6B /* wall1.png in Resources */,
 				527C68ED1C49CD630016CA6B /* ground.png in Resources */,
 				527C68C51C49CD350016CA6B /* LaunchScreen.storyboard in Resources */,
 				527C68FD1C4B78F30016CA6B /* boog.png in Resources */,
 				527C68C21C49CD350016CA6B /* Assets.xcassets in Resources */,
+				52BEC9861C55B91200AE3411 /* beam.png in Resources */,
 				527C68F31C49DA640016CA6B /* background.png in Resources */,
 				52EBB5B81C5277C000D6C203 /* boognishRising.png in Resources */,
 				52D02D801C50767800596A46 /* stallion.png in Resources */,
-				52BEC9801C55741600AE3411 /* bgMusic.mp3 in Resources */,
 				52EBB5B61C5203B000D6C203 /* pepper.png in Resources */,
 				527C69071C4C82AE0016CA6B /* restart.png in Resources */,
 				527C68C01C49CD350016CA6B /* Main.storyboard in Resources */,
 				52D02D821C5084BB00596A46 /* PipeDown.png in Resources */,
+				52E150721C57158E00472BE5 /* bgMusic.mp3 in Resources */,
 				52BEC9841C55973100AE3411 /* phish.png in Resources */,
 				52D02D8B1C51705200596A46 /* weasel.png in Resources */,
 				522B87041C535FD300308EA8 /* cockroach.png in Resources */,
